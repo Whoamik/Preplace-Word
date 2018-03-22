@@ -17,14 +17,25 @@ namespace Word
         }
         private List<DataWord> sData = new List<DataWord>();
         String name_file = "VPB-TBLAN1.docx";
+        String name_temp = "Temp.docx";
         private void btnIn_Click(object sender, EventArgs e)
         {
             CreateData();
             word.Application wordApp = new word.Application();
-            //String name_file = "VPB-TBLAN1.docx";
             String StartupPath = System.Windows.Forms.Application.StartupPath + "\\" + name_file;
-            Document newDocument = wordApp.Documents.Open(StartupPath, ReadOnly: true);
-            wordApp.Visible = false;
+            Document newDocument;
+            try
+            {
+                newDocument = wordApp.Documents.Open(StartupPath, ReadOnly: true);
+                wordApp.Visible = false;
+            }
+            catch (Exception)
+            {
+                CloseTemplate(name_file);
+                newDocument = wordApp.Documents.Open(StartupPath, ReadOnly: true);
+                wordApp.Visible = false;
+            }
+            
             if (!File.Exists(StartupPath))
             {
                 MessageBox.Show("Không tìm thấy file Template", "Thông Báo");
@@ -45,14 +56,15 @@ namespace Word
                         }
                         richTextBox1.Text = newDocument.Content.Text.ToString();
                     }
-
-                    newDocument.SaveAs(System.Windows.Forms.Application.StartupPath + "\\Temp.docx");
+                    newDocument.SaveAs(System.Windows.Forms.Application.StartupPath + "\\"+ name_temp);
                     newDocument.Close();
+                    wordApp.Quit();
                 }
                 catch (Exception)
                 {
                     newDocument.SaveAs(System.Windows.Forms.Application.StartupPath + "\\Temp " + DateTime.Now.ToString("HHmmss") + ".docx");
                     newDocument.Close();
+                    wordApp.Quit();
                 }
             }
         }
@@ -100,7 +112,6 @@ namespace Word
                         processfound = true;
                     }
                 }
-
                 if (processfound == false)
                 {
                     Process clsProcess = Process.GetProcessById(pidafter.K_ID);
@@ -110,7 +121,6 @@ namespace Word
         }
         private void KillProcesses(List<Processes> LstProcess, String name_file)
         {
-
             foreach (Processes proc in LstProcess)
             {
                 if (proc.K_NAME.Contains(name_file))
@@ -121,7 +131,11 @@ namespace Word
             }
 
         }
-
+        private void CloseTemplate(String name_file)
+        {
+            List<Processes> LstProcess = GetRunningProcesses();
+            KillProcesses(LstProcess, name_file);
+        }
         private void button2_Click(object sender, EventArgs e)
         {
             //List<Processes> processesbeforegen = GetRunningProcesses(); // lấy danh sách trước khi code 
@@ -129,7 +143,7 @@ namespace Word
             //List<Processes> processesaftergen = GetRunningProcesses(); // lấy danh sách sau khi code
             // KillProcesses(processesbeforegen, processesaftergen); // kill process phát sinh
             List<Processes> LstProcess = GetRunningProcesses();
-            KillProcesses(LstProcess, name_file);
+            KillProcesses(LstProcess, name_temp);
         }
     }
     public class Processes
