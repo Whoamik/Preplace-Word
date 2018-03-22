@@ -2,10 +2,10 @@ D:\Project\xLearn\Word\Word\bin\Debug\Word.exe.config
 D:\Project\xLearn\Word\Word\bin\Debug\Word.exe
 D:\Project\xLearn\Word\Word\bin\Debug\Word.pdb
 D:\Project\xLearn\Word\Word\obj\Debug\Word.csprojResolveAssemblyReference.cache
-D:\Project\xLearn\Word\Word\obj\Debug\Word.Form1.resources
 D:\Project\xLearn\Word\Word\obj\Debug\Word.Properties.Resources.resources
 D:\Project\xLearn\Word\Word\obj\Debug\Word.csproj.GenerateResource.Cache
 D:\Project\xLearn\Word\Word\obj\Debug\Word.csproj.CoreCompileInputs.cache
 D:\Project\xLearn\Word\Word\obj\Debug\Word.exe
 D:\Project\xLearn\Word\Word\obj\Debug\Word.pdb
 D:\Project\xLearn\Word\Word\bin\Debug\DocX.dll
+D:\Project\xLearn\Word\Word\obj\Debug\Word.frmReplaceWord.resources
